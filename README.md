@@ -86,10 +86,10 @@
 
 ### Tasks
 
-- [ ] Install GPMC and `GroupPolicy` module
-- [ ] Create GPO: `BaselineSecurityPolicy`
-- [ ] Apply settings via `Set-GPRegistryValue`
-- [ ] Link GPO to domain
+- [x] Install GPMC and `GroupPolicy` module
+- [x] Create GPO: `BaselineSecurityPolicy`
+- [x] Apply settings via `Set-GPRegistryValue`
+- [x] Link GPO to domain
 - [ ] Test on Windows 10 VM
 
 ---
