@@ -1,123 +1,140 @@
-# 🔐 Phased Secure Virtual Infrastructure Deployment Plan
+# 🏗️ Secure Virtual Infrastructure Deployment Lab
+**Created by: Tyreke A. Heyward**
 
-**Project Owner:** Tyreke Heyward  
-**Purpose:** Build a secure, scalable virtual infrastructure for cybersecurity training and systems engineering demonstration.  
-**Platform:** VirtualBox + Windows Server 2022 + Windows 10 Workstation + Ubuntu Server + Windows 10 (Jump Box) 
-**Lab Host:** Laptop w/ 2TB external drive, 8GB RAM
+**Goal:** Build a lightweight, secure virtual infrastructure to simulate a small enterprise network with AD, Linux server, centralized logging, and system hardening.
 
 ---
 
-## 📅 Phase Overview
+## 📅 Project Timeline Overview
 
-| Phase     | Description                                 | Status     |
-|-----------|---------------------------------------------|------------|
-| Day 0     | Prep and initial configuration              | ✅ Complete |
-| Day 1     | Install Windows Server 2022 VM              | ✅ Complete |
-| Day 2     | Base configuration (network, admin, updates)| ✅ Complete |
-| Phase 1   | AD DS, DNS, DHCP, Domain Join               | ✅ Complete |
-| Phase 2   | Group Policies, OU structure, logging       | 🔄 In Progress |
-| Phase 3   | File server, VPN setup, hardening           | 🔲 Not Started |
-
----
-
-## 🕐 Day 0 – Project Prep
-
-- [x] Define lab goals
-- [x] List required software and ISO files
-- [x] Install VirtualBox on host machine
-- [x] Create VM storage plan (external drive)
-- [x] Download Windows Server 2022 and Windows 10 ISOs
+| Phase | Description | Duration |
+|-------|-------------|----------|
+| Phase 0 | Prep | 2 Days |
+| Phase 1 | Domain Controller Deployment | Week 1 |
+| Phase 2 | Harden & Secure DC1 | Week 2 |
+| Phase 3 | Linux Server + Logging Setup | Week 3 |
+| Phase 4 | User Workstation Setup | Week 4 |
+| Phase 5 | Centralized Logging | Week 5 |
+| Phase 6 | Documentation & Wrap-Up | Week 6 |
+| Bonus | Stretch Goals | Optional |
 
 ---
 
-## 🕐 Day 1 – Install Server OS
+## 🔹 Phase 0: Prep (Day 0–2)
 
-- [x] Create a new VirtualBox VM for Server 2022
-- [x] Assign resources (2 CPU, 4GB RAM, 80GB disk)
-- [x] Mount Server 2022 ISO
-- [x] Run installer and set local admin credentials
-- [x] Install VirtualBox Guest Additions
-
----
-
-## 🕐 Day 2 – Base Server Setup
-
-- [x] Set static IP: `192.168.1.10`
-- [x] Rename computer: `DC1`
-- [x] Set time zone, enable remote management
-- [x] Run Windows Update
-- [x] Enable Windows PowerShell
+- [x] Install VirtualBox + Extension Pack
+- [x] Format external drive (exFAT or NTFS)
+- [x] Set VirtualBox VM folder to external drive
+- [x] Download required ISOs:
+  - [x] Windows Server 2022 (Core or GUI)
+  - [x] Ubuntu Server 22.04 LTS
+  - [x] Windows 10 ISO
+- [x] Create folders for documentation and screenshots
+- [x] (Optional) Create GitHub repo for tracking
 
 ---
 
-## 🛡️ Phase 1 – Core Services: AD DS, DNS, DHCP
+## 🔹 Phase 1: Domain Controller (Week 1)
 
-### ✔️ Roles Installed
-
-- [x] Active Directory Domain Services (AD DS)
-- [x] DNS Server
-- [x] DHCP Server
-
-### ✔️ Actions Taken
-
-- [x] Promoted `DC1` to domain controller for `heyward.local`
-- [x] Created domain admin credentials
-- [x] Configured DNS with forwarders (Google 8.8.8.8)
-- [x] Authorized DHCP server in AD
-- [x] Created DHCP scope: `192.168.1.100 – 192.168.1.200`
-
-### ✔️ Workstation Setup
-
-- [x] Created Windows 10 VM
-- [x] Set static or DHCP IP
-- [x] Joined `heyward.local` domain
-- [x] Verified DNS and AD authentication
+- [x] Create VM: `DC1` (2.5 GB RAM, 60 GB disk)
+- [x] Install Windows Server
+- [x] Promote to Domain Controller (AD DS + DNS)
+- [x] (Optional) Install DHCP
+- [x] Create:
+  - [x] 1 User account
+  - [x] 1 Security Group
+  - [x] 1 Organizational Unit (OU)
+- [x] Configure Group Policies:
+  - [x] Enforce password complexity
+  - [x] Create login banner
+  - [x] Enable audit policy
+- [x] Export configurations and take screenshots
 
 ---
 
-## 🛠️ Phase 2 – Group Policy & Structure
+## 🔹 Phase 2: Harden & Secure DC1 (Week 2)
 
-### 🎯 Goals
-
-- Create Organizational Units: IT, HR, Workstations
-- Apply password policy (min length, complexity)
-- Add logon message via GPO
-- Enable auditing for login events
-
-### Tasks
-
-- [x] Install GPMC and `GroupPolicy` module
-- [x] Create GPO: `BaselineSecurityPolicy`
-- [x] Apply settings via `Set-GPRegistryValue`
-- [x] Link GPO to domain
-- [ ] Test on Windows 10 VM
+- [ ] Rename default Administrator account
+- [ ] Configure Windows Firewall
+- [ ] Apply STIGs or CIS benchmarks
+- [ ] Enable auditing:
+  - [ ] Logon events
+  - [ ] Privilege use
+  - [ ] Object access
+- [ ] Export and document GPO baseline (`.xml` or `.html`)
 
 ---
 
-## 🔐 Phase 3 – Advanced Hardening (Planned)
+## 🔹 Phase 3: Ubuntu Server + Web + Logging (Week 3)
 
-- Set up a File Server role on DC or new VM
-- Configure VPN access (e.g., OpenVPN or RRAS)
-- Create regular backups of AD and DHCP
-- Harden Windows Server with baseline security templates
-- Enable Event Log forwarding to a central collector
-
----
-
-## 📌 Notes
-
-- VM Host: External SSD used to reduce I/O load
-- DNS forwarders configured to Google DNS
-- VMs tested in internal network only (no internet)
+- [ ] Create VM: `WEB1` (1.5 GB RAM, 20 GB disk)
+- [ ] Install and configure:
+  - [ ] Nginx (internal web page)
+  - [ ] `ufw` firewall
+  - [ ] `fail2ban`
+- [ ] Secure SSH:
+  - [ ] Disable root login
+  - [ ] Enable SSH key authentication
+- [ ] Install logging tools:
+  - [ ] `rsyslog` or Filebeat
+  - [ ] `auditd`
 
 ---
 
-## 🚀 Summary
+## 🔹 Phase 4: User Workstation (Week 4)
 
-This phased approach reflects secure enterprise practices while constrained to a laptop environment. It demonstrates:
-- Systems engineering design thinking
-- Hands-on experience with AD, DNS, DHCP, GPOs
-- Scripting, troubleshooting, and layered defense principles
+- [ ] Create VM: `USER1` (2.5 GB RAM, 30 GB disk)
+- [ ] Join domain `securelab.local`
+- [ ] Log in as domain user
+- [ ] Verify GPOs are applied:
+  - [ ] Password policy
+  - [ ] Login banner
+  - [ ] Audit policy
+- [ ] Test access to:
+  - [ ] Internal website on `WEB1`
+  - [ ] SSH access (if permitted)
+- [ ] (Bonus) Map network drive to DC1 or shared folder
+
+---
+
+## 🔹 Phase 5: Centralized Logging (Week 5)
+
+- [ ] Configure centralized logging on `WEB1`
+- [ ] Forward logs from:
+  - [ ] DC1 (via Winlogbeat)
+  - [ ] USER1
+- [ ] Test and verify:
+  - [ ] Failed login attempts
+  - [ ] GPO changes
+  - [ ] File access attempts
+- [ ] Save log samples and screenshots for documentation
+
+---
+
+## 🔹 Phase 6: Final Touches + Documentation (Week 6)
+
+- [ ] Create visual architecture diagram (draw.io)
+- [ ] Write README.md including:
+  - [ ] Overview
+  - [ ] Tools used
+  - [ ] VM specs
+  - [ ] Security highlights
+- [ ] Create:
+  - [ ] GPO and hardening checklist
+  - [ ] Screenshots of configurations
+- [ ] (Optional) Record a walkthrough video
+- [ ] (Optional) Push to GitHub repo (private or public)
+
+---
+
+## 🧩 Bonus Stretch Goals (Optional)
+
+- [ ] Install pfSense VM as firewall/router
+- [ ] Simulate VPN tunnel into the lab
+- [ ] Set up backups with Windows Backup or `rsync`
+- [ ] Deploy full ELK stack for advanced logging
+
+---
 
 
 
